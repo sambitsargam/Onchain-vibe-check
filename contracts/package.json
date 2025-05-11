@@ -1,0 +1,22 @@
+{
+  "name": "vibe-check-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for Onchain Vibe Check",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy.ts --network base-goerli",
+    "deploy:mainnet": "hardhat run scripts/deploy.ts --network base",
+    "verify:testnet": "hardhat verify --network base-goerli",
+    "verify:mainnet": "hardhat verify --network base"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "dotenv": "^16.0.0",
+    "hardhat": "^2.19.0",
+    "typescript": "^5.0.0"
+  }
+}
