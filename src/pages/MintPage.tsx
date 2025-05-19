@@ -3,10 +3,15 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Check, AlertCircle, Loader2 } from 'lucide-react';
 import VibeCardPreview from '../components/vibe/VibeCardPreview';
+import { ethers } from 'ethers';
+import VibeNFT from '../contracts/VibeNFT.json';
+import { useAccount, useSigner } from 'wagmi';
 
 const MintPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { address } = useAccount();
+  const { data: signer } = useSigner();
   
   const [isLoading, setIsLoading] = useState(true);
   const [vibe, setVibe] = useState<{
@@ -40,15 +45,25 @@ const MintPage: React.FC = () => {
   }, [id]);
 
   const handleMint = async () => {
+    if (!signer || !address) {
+      setError('Please connect your wallet.');
+      return;
+    }
+
     setMintState('loading');
     setError(null);
     
     try {
-      // Simulate minting process
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      // Simulate successful transaction
-      setTxHash('0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef');
+      const contract = new ethers.Contract(
+        process.env.REACT_APP_VIBE_NFT_CONTRACT_ADDRESS!,
+        VibeNFT.abi,
+        signer
+      );
+
+      const tx = await contract.mintVibe(address, `ipfs://metadata/${vibe?.id}`, vibe?.type);
+      await tx.wait();
+
+      setTxHash(tx.hash);
       setMintState('success');
       
       // Navigate to the dashboard after a delay

@@ -46,6 +46,7 @@ const Footer: React.FC = () => {
               <FooterLink href="/" label="Home" />
               <FooterLink href="/dashboard" label="Dashboard" />
               <FooterLink href="/connect" label="Connect" />
+              <FooterLink href="/mint" label="Mint" />
             </ul>
           </div>
 

@@ -8,7 +8,11 @@
     "deploy:testnet": "hardhat run scripts/deploy.ts --network base-goerli",
     "deploy:mainnet": "hardhat run scripts/deploy.ts --network base",
     "verify:testnet": "hardhat verify --network base-goerli",
-    "verify:mainnet": "hardhat verify --network base"
+    "verify:mainnet": "hardhat verify --network base",
+    "deploy:base": "hardhat run scripts/deploy.ts --network base",
+    "deploy:base-goerli": "hardhat run scripts/deploy.ts --network base-goerli",
+    "verify:base": "hardhat verify --network base",
+    "verify:base-goerli": "hardhat verify --network base-goerli"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",

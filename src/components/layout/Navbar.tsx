@@ -44,6 +44,8 @@ const Navbar: React.FC = () => {
             <div className="flex space-x-6">
               <NavLink href="/" label="Home" />
               <NavLink href="/dashboard" label="Dashboard" />
+              <NavLink href="/connect" label="Connect" />
+              <NavLink href="/mint" label="Mint" />
             </div>
             <ConnectButton />
           </div>
@@ -99,6 +101,8 @@ const Navbar: React.FC = () => {
             <div className="flex flex-col space-y-4 py-2">
               <MobileNavLink href="/" label="Home" />
               <MobileNavLink href="/dashboard" label="Dashboard" />
+              <MobileNavLink href="/connect" label="Connect" />
+              <MobileNavLink href="/mint" label="Mint" />
             </div>
           </div>
         )}

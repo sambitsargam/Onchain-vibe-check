@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Base64.sol";
@@ -67,5 +66,42 @@ library VibeMetadata {
         badgeString = abi.encodePacked(badgeString, ']');
 
         return badgeString;
+    }
+
+    function generateOnChainMetadata(
+        uint256 tokenId,
+        VibeAttributes memory attributes
+    ) public pure returns (string memory) {
+        bytes memory metadata = abi.encodePacked(
+            '{"name": "Vibe Check #',
+            tokenId.toString(),
+            '", "description": "Onchain Vibe Check NFT - ',
+            attributes.vibeType,
+            '", "attributes": [',
+            generateAttributes(attributes),
+            '], "image": "data:image/svg+xml;base64,',
+            Base64.encode(generateSVGImage(attributes)),
+            '"}'
+        );
+
+        return string(
+            abi.encodePacked(
+                "data:application/json;base64,",
+                Base64.encode(metadata)
+            )
+        );
+    }
+
+    function generateSVGImage(VibeAttributes memory attributes) private pure returns (bytes memory) {
+        return abi.encodePacked(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 350">',
+            '<style>.base { fill: white; font-family: serif; font-size: 14px; }</style>',
+            '<rect width="100%" height="100%" fill="black" />',
+            '<text x="10" y="20" class="base">Vibe Type: ', attributes.vibeType, '</text>',
+            '<text x="10" y="40" class="base">Vibe Score: ', attributes.vibeScore.toString(), '</text>',
+            '<text x="10" y="60" class="base">Mint Timestamp: ', attributes.mintTimestamp.toString(), '</text>',
+            '<text x="10" y="80" class="base">Badges: ', generateBadgeString(attributes.badges), '</text>',
+            '</svg>'
+        );
     }
 }

@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 library VibeAnalyzer {
@@ -57,5 +56,13 @@ library VibeAnalyzer {
 
     function max2(uint256 a, uint256 b) private pure returns (uint256) {
         return a >= b ? a : b;
+    }
+
+    function calculateSocialScore(VibeData memory data) private pure returns (uint256) {
+        return data.socialInteractions * 2 + data.emojiCount;
+    }
+
+    function calculateTradingScore(VibeData memory data) private pure returns (uint256) {
+        return data.tradingVolume * 2 + data.uniqueTokens;
     }
 }
